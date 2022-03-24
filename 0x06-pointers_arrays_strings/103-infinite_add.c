@@ -1,4 +1,3 @@
-s (51 sloc)  806 Bytes
 #include "main.h"
 /**
  * infinite_add -  adds two numbers
