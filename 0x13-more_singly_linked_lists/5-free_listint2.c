@@ -8,19 +8,22 @@
 void free_listint2(listint_t **head)
 {
 	/*declare variables to be used*/
-	listint_t *ptr;
-
-	ptr = *head;
-	/*traverse the list and free head*/
-	while (ptr != NULL)
+	listint_t *prev, *current;
+	/*check if head is not NULL*/
+	if (head != NULL)
 	{
-		/*move to the next address*/
-		ptr = ptr->next;
-		/*after moving free head*/
-		free(*head);
-		/*then set head to the next address*/
-		*head = ptr;
+		prev = current = *head;
+		/*traverse the list and free head*/
+		while (current != NULL)
+		{
+			/*move to the next address*/
+			current = current->next;
+			/*after moving free prev*/
+			free(prev);
+			/*then set head to the next address*/
+			prev = current;
+		}
+		/*all the list have been freed set head to NULL*/
+		*head = NULL;
 	}
-	/*all the list have been freed set head to NULL*/
-	head = NULL;
 }
