@@ -10,25 +10,27 @@ ssize_t read_textfile(const char *filename, size_t letters)
 {
 	/* Declare variables to be used */
 	int fd;
-	ssize_t numread, numwrit;
-	char *buf;
-
-	if (filename == NULL)
-		return (0);
-	/* open file */
+	char *alc;
+	ssize_t numread, numwrt;
+	
 	fd = open(filename, O_RDONLY);
-	/* check if file opens */
-	if (fd == -1)
-		return (0);
+	if(fd == -1)
+		return 0;
+	if(filename == NULL)
+		return 0;
+
 	/* malloc space */
-	buf = malloc(letters);
-	if (buf == NULL)
-		return (0);
-	/* Now proceed to read the text file */
-	numread = read(fd, buf, letters);
-	/* write to stdout */
-	numwrit = write(STDOUT_FILENO, buf, numread);
-	free(buf);
+	alc = malloc(sizeof(char)*letters);
+	if(alc==NULL)
+		return(0);
+
+	/* Reading the text file */
+	numread = read(fd, alc,letters);
+
+	/* Write to stdout */
+	numwrt = write(STDOUT_FILENO, alc, numread);
+	
+	free(alc);
 	close(fd);
-	return (numwrit);
+	return (numwrt);
 }
