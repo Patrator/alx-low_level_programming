@@ -9,16 +9,21 @@
 
 int create_file(const char *filename, char *text_content)
 {
+	/* Declare variables to be used */
 	int fd, i = 0;
-	fd = open(filename, O_CREATE | RDWR | O_TRUNC, 0600);
-	if(!fd)
-		return -1;
-	if(filename = NULL)
-		return -1;
-	if(text_content)
+	/* set requirements */
+	if (!filename)
+		return (-1);
+	/* open the file and create if not there */
+	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
+	if (fd == -1)
+		return (-1);
+	if (text_content)
 	{
-		while(text_content[i] != '\0')
-			I++;
+		/* loop through and get length of string */
+		while (text_content[i] != '\0')
+			i++;
+		/* write to the file */
 		write(fd, text_content, i);
 	}
 	close(fd);
