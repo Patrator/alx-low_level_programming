@@ -18,17 +18,22 @@ int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 	future = *head;
 	if (index == 0)
 	{
-		future = future->next, free(*head), *head = future;
+		(*head) = (*head)->next, free(future);
+		if (*head)
+			(*head)->prev = NULL;
 		return (1);
 	}
-	for (i = 0; i < index && future; i++)
+	for (i = 0; future; i++)
+	{
+		if (i == index) /* invalid index */
+		{
+			future->prev->next = future->next;
+			if (future->next)
+				future->next->prev = future->prev;
+			free(future);
+			return (1);
+		}
 		future = future->next;
-
-	if (i != index || !future) /* invalid index */
-		return (-1);
-
-	future->prev->next = future->next;
-	future->next->prev = future->prev;
-	free(future);
-	return (1);
+	}
+	return (-1);
 }
